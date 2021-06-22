@@ -1,0 +1,48 @@
+#Problmea https://www.hackerrank.com/challenges/html-parser-part-1/problem
+
+from html.parser import HTMLParser
+
+
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print ('Start :', tag)
+        for ele in attrs:
+            print ('->', ele[0], '>', ele[1])
+
+    def handle_endtag(self, tag):
+        print ('End   :', tag)
+
+    def handle_startendtag(self, tag, attrs):
+        print ('Empty :', tag)
+        for ele in attrs:
+            print ('->', ele[0], '>', ele[1])
+
+
+parser = MyHTMLParser()
+for _ in range(int(input())):
+    parser.feed(input())
+
+"""
+ENTRADA
+
+2
+<html><head><title>HTML Parser - I</title></head>
+<body data-modal-target class='1'><h1>HackerRank</h1><br /></body></html>
+
+SALIDA
+
+Start : html
+Start : head
+Start : title
+End   : title
+End   : head
+Start : body
+-> data-modal-target > None
+-> class > 1
+Start : h1
+End   : h1
+Empty : br
+End   : body
+End   : html
+
+"""
